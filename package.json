@@ -1,0 +1,7 @@
+{
+  "name": "rewire-root",
+  "private": true,
+  "scripts": {
+    "build": "cd rewire-app && npm install && npm run build"
+  }
+}

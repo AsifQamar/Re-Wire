@@ -10,8 +10,14 @@ const registerUser = async (req, res) => {
   const { username, email, password, role } = req.body;
 
   try {
-    const userExists = await User.findOne({ email });
-    if (userExists) return res.status(400).json({ message: 'User already exists' });
+    const userExists = await User.findOne({ $or: [{ email }, { username }] });
+    if (userExists) {
+      if (userExists.email === email) {
+        return res.status(400).json({ message: 'User with this email already exists' });
+      } else {
+        return res.status(400).json({ message: 'Username is already taken' });
+      }
+    }
 
     const user = await User.create({ username, email, password, role });
 

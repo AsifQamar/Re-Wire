@@ -1,6 +1,5 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
-
 const createPaymentIntent = async (req, res) => {
   try {
     const { amountInRupees } = req.body; 
@@ -13,7 +12,8 @@ const createPaymentIntent = async (req, res) => {
 
     const paymentIntent = await stripe.paymentIntents.create({
       amount: amountInPaise,
-      currency: 'inr', 
+      currency: 'inr',
+      automatic_payment_methods: { enabled: true },
       metadata: { userId: req.user._id.toString() } 
     });
 

@@ -57,9 +57,10 @@ export default function User() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const getReward = () => {
+ const getReward = () => {
     if (form.cat && form.wt > 0) {
-      return Math.round(parseFloat(form.cat) * parseFloat(form.wt) * 0.88);
+      // The bug was here: it previously multiplied by 0.88
+      return Math.round(parseFloat(form.cat) * parseFloat(form.wt));
     }
     return 0;
   };
